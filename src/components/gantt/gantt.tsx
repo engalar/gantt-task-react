@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
+var LTT = require("list-to-tree");
 import { ViewMode, GanttProps, Task } from "../../types/public-types";
 import { GridProps } from "../grid/grid";
 import { ganttDateRange, seedDates } from "../../helpers/date-helper";
@@ -23,6 +24,8 @@ import { DateSetup } from "../../types/date-setup";
 import styles from "./gantt.module.css";
 import { HorizontalScroll } from "../other/horizontal-scroll";
 import { removeHiddenTasks, sortTasks } from "../../helpers/other-helper";
+//@ts-ignore
+import eachDeep from "deepdash/eachDeep";
 
 export const Gantt: React.FunctionComponent<GanttProps> = ({
   tasks,
@@ -104,7 +107,36 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     } else {
       filteredTasks = tasks;
     }
-    filteredTasks = filteredTasks.sort(sortTasks);
+
+    const tree = new LTT([
+      { id: undefined, project: 0 },
+      ...filteredTasks], {
+      key_id: "id",
+      key_parent: "project",
+      empty_children: true
+    });
+    const sortedList: Task[] = [];
+    eachDeep(
+      tree.tree.rootNode.children[0].children,
+      (value: any, _key: any, _parent: any, ctx: any) => {
+        if (ctx.isCircular) {
+          console.log("Circular reference to " + ctx.circularParent.path + " skipped at " + ctx.path);
+          return false; // explicit `false` will skip children of current value
+        }
+        /* console.log(
+            111,
+            value.content.name,
+            key,
+            Array.isArray(parent) ? parent.map(d => d.content.name) : parent.content.name,
+            ctx
+        ); */
+        sortedList.push(value.content);
+        return true;
+      },
+      { checkCircular: true, childrenPath: ["children"] }
+    );
+
+    filteredTasks = sortedList.sort(sortTasks);
     const [startDate, endDate] = ganttDateRange(filteredTasks, viewMode);
     let newDates = seedDates(startDate, endDate, viewMode);
     if (rtl) {

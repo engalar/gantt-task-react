@@ -24,7 +24,7 @@
     "task"
   ],
   "scripts": {
-    "x": "npm i --registry=https://registry.npmmirror.com",
+    "x": "npm i --registry=https://registry.npmmirror.com --ignore-scripts",
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
@@ -73,6 +73,10 @@
     "react-dom": "^17.0.2",
     "react-scripts": "^5.0.0",
     "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "list-to-tree": "^2.2.4",
+    "deepdash": "^5.3.9"
   },
   "files": [
     "dist"
