@@ -3,10 +3,11 @@ import styles from "./task-list-header.module.css";
 
 export const TaskListHeaderDefault: React.FC<{
   headerHeight: number;
-  rowWidth: string;
+  maxPaddingLeft: number;
+  rowWidth: number;
   fontFamily: string;
   fontSize: string;
-}> = ({ headerHeight, fontFamily, fontSize, rowWidth }) => {
+}> = ({ headerHeight, fontFamily, fontSize, rowWidth, maxPaddingLeft }) => {
   return (
     <div
       className={styles.ganttTable}
@@ -24,7 +25,7 @@ export const TaskListHeaderDefault: React.FC<{
         <div
           className={styles.ganttTable_HeaderItem}
           style={{
-            minWidth: rowWidth,
+            minWidth: rowWidth + maxPaddingLeft,
           }}
         >
           &nbsp;任务名称

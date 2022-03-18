@@ -78,7 +78,7 @@ const App = () => {
         onDoubleClick={handleDblClick}
         onSelect={handleSelect}
         onExpanderClick={handleExpanderClick}
-        listCellWidth={isChecked ? "155px" : ""}
+        listCellWidth={isChecked ? 155 : undefined}
         columnWidth={columnWidth}
       />
       <h3>Gantt With Limited Height</h3>
@@ -91,7 +91,7 @@ const App = () => {
         onDoubleClick={handleDblClick}
         onSelect={handleSelect}
         onExpanderClick={handleExpanderClick}
-        listCellWidth={isChecked ? "155px" : ""}
+        listCellWidth={isChecked ? 155 : undefined}
         ganttHeight={300}
         columnWidth={columnWidth}
       />

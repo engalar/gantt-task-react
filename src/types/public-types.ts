@@ -81,7 +81,7 @@ export interface DisplayOption {
 export interface StylingOption {
   headerHeight?: number;
   columnWidth?: number;
-  listCellWidth?: string;
+  listCellWidth?: number;
   rowHeight?: number;
   ganttHeight?: number;
   barCornerRadius?: number;
@@ -113,13 +113,14 @@ export interface StylingOption {
   }>;
   TaskListHeader?: React.FC<{
     headerHeight: number;
-    rowWidth: string;
+    rowWidth: number;
+    maxPaddingLeft: number;
     fontFamily: string;
     fontSize: string;
   }>;
   TaskListTable?: React.FC<{
     rowHeight: number;
-    rowWidth: string;
+    rowWidth: number;
     fontFamily: string;
     fontSize: string;
     locale: string;

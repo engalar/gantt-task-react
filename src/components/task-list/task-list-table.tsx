@@ -23,7 +23,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 
 export const TaskListTableDefault: React.FC<{
   rowHeight: number;
-  rowWidth: string;
+  rowWidth: number;
   fontFamily: string;
   fontSize: string;
   locale: string;
@@ -61,6 +61,9 @@ export const TaskListTableDefault: React.FC<{
           expanderSymbol = "▶";
         }
 
+        //@ts-ignore
+        const paddingLeft = (t.__depth - 1) * 15;
+
         return (
           <div
             className={styles.taskListTableRow}
@@ -70,8 +73,9 @@ export const TaskListTableDefault: React.FC<{
             <div
               className={styles.taskListCell}
               style={{
-                minWidth: rowWidth,
-                maxWidth: rowWidth,
+                paddingLeft, 
+                minWidth: rowWidth+ paddingLeft,
+                maxWidth: rowWidth+ paddingLeft,
               }}
               title={t.name}
             >

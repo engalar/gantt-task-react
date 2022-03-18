@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { BarTask } from "../../types/bar-task";
 import { Task } from "../../types/public-types";
 
 export type TaskListProps = {
   headerHeight: number;
-  rowWidth: string;
+  rowWidth: number;
   fontFamily: string;
   fontSize: string;
   rowHeight: number;
@@ -19,13 +19,14 @@ export type TaskListProps = {
   onExpanderClick: (task: Task) => void;
   TaskListHeader: React.FC<{
     headerHeight: number;
-    rowWidth: string;
+    rowWidth: number;
+    maxPaddingLeft: number;
     fontFamily: string;
     fontSize: string;
   }>;
   TaskListTable: React.FC<{
     rowHeight: number;
-    rowWidth: string;
+    rowWidth: number;
     fontFamily: string;
     fontSize: string;
     locale: string;
@@ -61,7 +62,13 @@ export const TaskList: React.FC<TaskListProps> = ({
     }
   }, [scrollY]);
 
+  const maxPaddingLeft = useMemo(() =>
+    //@ts-ignore
+    Math.max.apply(null, tasks.map(d => d.__depth).concat(0)),
+    [tasks]) * 15;
+
   const headerProps = {
+    maxPaddingLeft,
     headerHeight,
     fontFamily,
     fontSize,
