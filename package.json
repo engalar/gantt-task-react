@@ -24,7 +24,7 @@
     "task"
   ],
   "scripts": {
-    "x": "npm i --registry=https://registry.npmmirror.com",
+    "x": "set NODE_AUTH_TOKEN=1 && npm i --registry=https://registry.npmmirror.com",
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
@@ -49,6 +49,7 @@
     "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.9.1",
+    "eslint": "^6.8.0",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.3",
     "eslint-config-prettier": "^6.15.0",
